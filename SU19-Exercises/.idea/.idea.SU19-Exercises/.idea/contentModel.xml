@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$/../DIKUArcade/DIKUArcade" t="IncludeRecursive">
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="DIKUArcade.csproj" t="IncludeRecursive" />
+      <e p="Entities" t="Include">
+        <e p="DynamicShape.cs" t="Include" />
+        <e p="Entity.cs" t="Include" />
+        <e p="EntityContainer.cs" t="Include" />
+        <e p="EntityContainerT.cs" t="Include" />
+        <e p="Shape.cs" t="Include" />
+        <e p="StationaryShape.cs" t="Include" />
+      </e>
+      <e p="EventBus" t="Include">
+        <e p="GameEvent.cs" t="Include" />
+        <e p="GameEventBus.cs" t="Include" />
+        <e p="GameEventBusInterface.cs" t="Include" />
+        <e p="GameEventFactory.cs" t="Include" />
+        <e p="GameEventProcessor.cs" t="Include" />
+        <e p="GameEventQueue.cs" t="Include" />
+        <e p="GameEventType.cs" t="Include" />
+      </e>
+      <e p="Graphics" t="Include">
+        <e p="Animation.cs" t="Include" />
+        <e p="AnimationContainer.cs" t="Include" />
+        <e p="IBaseImage.cs" t="Include" />
+        <e p="Image.cs" t="Include" />
+        <e p="ImageStride.cs" t="Include" />
+        <e p="Text.cs" t="Include" />
+        <e p="Texture.cs" t="Include" />
+      </e>
+      <e p="Input" t="Include">
+        <e p="KeyTransformer.cs" t="Include" />
+      </e>
+      <e p="Math" t="Include">
+        <e p="Vec2D.cs" t="Include" />
+        <e p="Vec2F.cs" t="Include" />
+        <e p="Vec2I.cs" t="Include" />
+        <e p="Vec3D.cs" t="Include" />
+        <e p="Vec3F.cs" t="Include" />
+        <e p="Vec3I.cs" t="Include" />
+        <e p="Vec4D.cs" t="Include" />
+        <e p="Vec4F.cs" t="Include" />
+        <e p="Vec4I.cs" t="Include" />
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="OpenTK.dll.config" t="Include" />
+      <e p="packages.config" t="Include" />
+      <e p="Physics" t="Include">
+        <e p="CollisionData.cs" t="Include" />
+        <e p="CollisionDetection.cs" t="Include" />
+        <e p="CollisionDirection.cs" t="Include" />
+        <e p="NewtonianForce.cs" t="Include" />
+      </e>
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+      </e>
+      <e p="State" t="Include">
+        <e p="IGameState.cs" t="Include" />
+      </e>
+      <e p="Timers" t="Include">
+        <e p="GameTimer.cs" t="Include" />
+        <e p="StaticTimer.cs" t="Include" />
+        <e p="TimedEvent.cs" t="Include" />
+        <e p="TimedEventContainer.cs" t="Include" />
+        <e p="TimeSpanType.cs" t="Include" />
+      </e>
+      <e p="Utilities" t="Include">
+        <e p="FileIO.cs" t="Include" />
+        <e p="RandomGenerator.cs" t="Include" />
+      </e>
+      <e p="Window.cs" t="Include" />
+    </e>
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Galaga-Exercise-1" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Enemy.cs" t="Include" />
+        <e p="Galaga-Exercise-1.csproj" t="IncludeRecursive" />
+        <e p="Game.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Player.cs" t="Include" />
+        <e p="PlayerShot.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Score.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SU19-Exercises.sln" t="IncludeFlat" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_SU19-Exercises.-641846055.00" t="ExcludeRecursive" />
+  </component>
+</project>

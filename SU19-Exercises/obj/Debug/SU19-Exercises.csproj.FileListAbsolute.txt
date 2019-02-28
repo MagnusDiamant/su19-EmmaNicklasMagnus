@@ -1,0 +1,6 @@
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/bin/Debug/SU19_Exercises.exe
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/bin/Debug/SU19_Exercises.pdb
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/obj/Debug/SU19-Exercises.csprojResolveAssemblyReference.cache
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/obj/Debug/SU19-Exercises.csproj.CoreCompileInputs.cache
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/obj/Debug/SU19_Exercises.exe
+/Users/marcusdiamant/Desktop/Data/SU/su19-EmmaNicklasMagnus/SU19-Exercises/obj/Debug/SU19_Exercises.pdb

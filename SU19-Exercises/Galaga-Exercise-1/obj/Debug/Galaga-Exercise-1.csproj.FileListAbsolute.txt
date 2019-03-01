@@ -19,3 +19,14 @@
 /Users/emmalp/Downloads/SU/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csproj.CopyComplete
 /Users/emmalp/Downloads/SU/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.exe
 /Users/emmalp/Downloads/SU/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.pdb
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/Galaga_Exercise_1.exe
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/Galaga_Exercise_1.pdb
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/DIKUArcade.dll
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/OpenTK.dll
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/DIKUArcade.pdb
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/bin/Debug/OpenTK.xml
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csprojAssemblyReference.cache
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csproj.CoreCompileInputs.cache
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csproj.CopyComplete
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.exe
+/Users/emmalp/Dropbox/Datalogi/SU/RiderProjects/Assignment4/su19-EmmaNicklasMagnus/SU19-Exercises/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.pdb

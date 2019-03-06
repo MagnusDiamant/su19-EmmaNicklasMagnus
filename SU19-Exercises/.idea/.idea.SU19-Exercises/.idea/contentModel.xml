@@ -79,6 +79,8 @@
         <e p="Galaga-Exercise-1.csproj" t="IncludeRecursive" />
         <e p="Game.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
+        <e p="OpenTK.dll.config" t="Include" />
+        <e p="packages.config" t="Include" />
         <e p="Player.cs" t="Include" />
         <e p="PlayerShot.cs" t="Include" />
         <e p="Program.cs" t="Include" />
@@ -91,6 +93,6 @@
       <e p="SU19-Exercises.sln" t="IncludeFlat" />
     </e>
     <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_SU19-Exercises.-641846055.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_SU19-Exercises.-501435850.00" t="ExcludeRecursive" />
   </component>
 </project>

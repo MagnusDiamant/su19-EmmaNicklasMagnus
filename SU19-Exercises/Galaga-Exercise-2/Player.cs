@@ -9,6 +9,7 @@ namespace Galaga_Exercise_1 {
 
         public Player(Game game, DynamicShape shape, IBaseImage image) : base(shape, image) {
             this.game = game;
+            
         }
 
         // Making the Direction method which sets the direction of the player as the given vector

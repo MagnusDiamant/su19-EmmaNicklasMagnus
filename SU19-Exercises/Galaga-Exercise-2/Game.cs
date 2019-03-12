@@ -56,11 +56,13 @@ namespace Galaga_Exercise_1 {
             eventBus = new GameEventBus<object>();
             eventBus.InitializeEventBus(new List<GameEventType> {
                 GameEventType.InputEvent, // key press / key release
-                GameEventType.WindowEvent // messages to the window
+                GameEventType.WindowEvent, // messages to the window
+                GameEventType.PlayerEvent // Message from the player
             });
             win.RegisterEventBus(eventBus);
             eventBus.Subscribe(GameEventType.InputEvent, this);
             eventBus.Subscribe(GameEventType.WindowEvent, this);
+            eventBus.Subscribe(GameEventType.PlayerEvent, this);
 
             // Added snippet of code from the assignment description 
             enemyStrides = ImageStride.CreateStrides(4,
@@ -124,6 +126,7 @@ namespace Galaga_Exercise_1 {
 
                     // Calling eventBus.ProcessEvents()
                     eventBus.ProcessEvents();
+                    
 
                     // Making the player move
                     if (player.Shape.Position.X > 0.0 && player.Shape.Position.X < 0.9) {
@@ -165,13 +168,19 @@ namespace Galaga_Exercise_1 {
                         GameEventType.WindowEvent, this,
                         "CLOSE_WINDOW", "", ""));
                 break;
-            // Calling player direction for the left key
+            // Sends a message to the event bus that the left key has been pressed
             case "KEY_LEFT":
-                player.Direction(new Vec2F(-0.01f, 0.0f));
+                eventBus.RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_LEFT", "", ""));
                 break;
-            // Calling player direction for the right key
+            // Sends a message to the event bus that the right key has been pressed
             case "KEY_RIGHT":
-                player.Direction(new Vec2F(0.01f, 0.0f));
+                eventBus.RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_RIGHT", "", ""));
                 break;
             // Calling CreateShot for the space key
             case "KEY_SPACE":
@@ -183,10 +192,16 @@ namespace Galaga_Exercise_1 {
         public void KeyRelease(string key) {
             switch (key) {
             case "KEY_RIGHT":
-                player.Direction(new Vec2F(0.0f, 0.0f));
+                eventBus.RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
                 break;
             case "KEY_LEFT":
-                player.Direction(new Vec2F(0.0f, 0.0f));
+                eventBus.RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
                 break;
             }
         }

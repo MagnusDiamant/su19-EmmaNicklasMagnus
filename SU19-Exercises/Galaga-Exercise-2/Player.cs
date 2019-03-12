@@ -25,9 +25,7 @@ namespace Galaga_Exercise_1 {
                 Shape.Move();
             }
         }
-/// <summary>
-/// HEJ Hva så, dette er en lille ændring 
-/// </summary>
+
         // CreateShot adds a shot to the playerShots list 
         public void CreateShot() {
             var playerShot = new PlayerShot(game,

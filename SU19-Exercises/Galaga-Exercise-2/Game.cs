@@ -8,7 +8,7 @@ using DIKUArcade.Math;
 using DIKUArcade.Physics;
 using DIKUArcade.Timers;
 
-namespace Galaga_Exercise_1 {
+namespace Galaga_Exercise_2 {
     public class Game : IGameEventProcessor<object> {
         // Creating an instance field eventBus
         private readonly GameEventBus<object> eventBus;
@@ -62,7 +62,7 @@ namespace Galaga_Exercise_1 {
             win.RegisterEventBus(eventBus);
             eventBus.Subscribe(GameEventType.InputEvent, this);
             eventBus.Subscribe(GameEventType.WindowEvent, this);
-            eventBus.Subscribe(GameEventType.PlayerEvent, this);
+            eventBus.Subscribe(GameEventType.PlayerEvent, player);
 
             // Added snippet of code from the assignment description 
             enemyStrides = ImageStride.CreateStrides(4,
@@ -129,15 +129,14 @@ namespace Galaga_Exercise_1 {
                     
 
                     // Making the player move
-                    if (player.Shape.Position.X > 0.0 && player.Shape.Position.X < 0.9) {
-                        player.Move();
-                    }
+                    player.Move();
+                    
 
                     // Iterating shots
                     IterateShots();
 
                     // Render gameplay entities here
-                    player.RenderEntity();
+                    player.Entity.RenderEntity();
                     foreach (var x in enemies) {
                         x.RenderEntity();
                     }

@@ -1,7 +1,7 @@
 using DIKUArcade.Entities;
 using DIKUArcade.Graphics;
 
-namespace Galaga_Exercise_1 {
+namespace Galaga_Exercise_2 {
     public class Enemy : Entity {
         private Game game;
 

@@ -13,8 +13,8 @@ namespace Galaga_Exercise_2 {
         }
 
         // AddPoint increases the score by 1 point.
-        public void AddPoint() {
-            score += 1;
+        public void AddPoint(int point) {
+            score += point;
         }
 
         public void RenderScore() {

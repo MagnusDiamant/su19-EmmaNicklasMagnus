@@ -43,11 +43,17 @@ namespace Galaga_Exercise_2 {
         // 2.7 Creating another enemyStrides list called redMonster
         public List<Image> redMonster;
         
+        // 2.7 Creating another enemyStrides list called greenMonster
+        public List<Image> greenMonster;
+        
         // 2.7 Creating a Squadron
         public Squadron squadron = new Squadron();
         
         // 2.7 Creating a SuperSquadron
         public SuperSquadron superSquadron = new SuperSquadron();
+        
+        // 2.7 Creating a GreenSquadron
+        public GreenSquadron greenSquadron = new GreenSquadron();
 
 
         public Game() {
@@ -82,6 +88,10 @@ namespace Galaga_Exercise_2 {
             // Making the redMonster
             redMonster = ImageStride.CreateStrides(2, 
                 Path.Combine("Assets", "Images", "RedMonster.png"));
+            
+            // Making the greenMonster
+            greenMonster = ImageStride.CreateStrides(2,
+                Path.Combine("Assets", "Images", "GreenMonster.png"));
 
             // Instantiating playerShots as a new PlayerShot list
             playerShots = new List<PlayerShot>();
@@ -131,6 +141,7 @@ namespace Galaga_Exercise_2 {
             // 2.7 Creating squadrons at different spots on the screen
             squadron.CreateEnemies(enemyStrides);
             superSquadron.CreateEnemies(redMonster);
+            greenSquadron.CreateEnemies(greenMonster);
 
             while (win.IsRunning()) {
                 gameTimer.MeasureTime();
@@ -164,6 +175,11 @@ namespace Galaga_Exercise_2 {
                     // 2.7 Rendering the SuperSquandron enemies
                     foreach (Entity superSquad  in superSquadron.Enemies) {
                         superSquad.RenderEntity();
+                    }
+                    
+                    // 2.7 Rendering the GreenSquadron enemies
+                    foreach (Entity greenSquad in greenSquadron.Enemies) {
+                        greenSquad.RenderEntity();
                     }
 
                     foreach (var shot in playerShots) {
@@ -255,7 +271,13 @@ namespace Galaga_Exercise_2 {
                     entity.DeleteEntity();
                     AddExplosion(entity.Shape.Position.X, entity.Shape.Position.Y,
                         0.1f, 0.1f);
-                    score.AddPoint();
+// MAYBE IF POSSIBLE MAKE SUPERSQUANDRONS GIVE 5 POINTS                    
+//                    if () {
+//                        score.AddPoint(5);
+//                    } else {
+//                        score.AddPoint(1);
+//                    }
+                    score.AddPoint(1);
                 }
             }
         }
@@ -273,6 +295,7 @@ namespace Galaga_Exercise_2 {
             // Method on squadron.Enemies
             squadron.Enemies.Iterate(Iterator);
             superSquadron.Enemies.Iterate(Iterator);
+            greenSquadron.Enemies.Iterate(Iterator);
 
             // Making a new list without the shots that have hit an enemy or have left the window
             var newShots = new List<PlayerShot>();

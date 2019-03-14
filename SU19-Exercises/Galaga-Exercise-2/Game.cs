@@ -7,6 +7,7 @@ using DIKUArcade.Graphics;
 using DIKUArcade.Math;
 using DIKUArcade.Physics;
 using DIKUArcade.Timers;
+using Galaga_Exercise_2.MovementStrategy;
 
 namespace Galaga_Exercise_2 {
     public class Game : IGameEventProcessor<object> {
@@ -31,15 +32,19 @@ namespace Galaga_Exercise_2 {
         private readonly Window win;
 
         // Creating fields for the enemies
-        public List<Enemy> enemies;
-        public List<Image> enemyStrides;
+        private List<Enemy> enemies;
+        private List<Image> enemyStrides;
         
         // 2.7 Creating fields for the squadrons
-        public List<Image> redMonster;
-        public List<Image> greenMonster;
-        public Squadron squadron = new Squadron();
-        public SuperSquadron superSquadron = new SuperSquadron();
-        public GreenSquadron greenSquadron = new GreenSquadron();
+        private List<Image> redMonster;
+        private List<Image> greenMonster;
+        private Squadron squadron = new Squadron();
+        private SuperSquadron superSquadron = new SuperSquadron();
+        private GreenSquadron greenSquadron = new GreenSquadron();
+        
+        // 2.8 Creating fields to make the enemies move
+        private NoMove noMove;
+        private Down down;
 
 
         public Game() {
@@ -90,6 +95,10 @@ namespace Galaga_Exercise_2 {
             // Instantiating score as a new Score
             score = new Score(new Vec2F(0.43f, 0.40f),
                 new Vec2F(0.3f, 0.2f));
+            
+            // Instantiating the move fields
+            noMove = new NoMove();
+            down = new Down();
         }
 
         // Creating a playerShots list
@@ -138,6 +147,11 @@ namespace Galaga_Exercise_2 {
                     
                     // Making the player move
                     player.Move();
+                    
+                    // 2.8 Making the enemies move
+                    noMove.MoveEnemies(squadron.Enemies);
+                    down.MoveEnemies(superSquadron.Enemies);
+                    
 
                     // Iterating shots
                     IterateShots();

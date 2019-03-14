@@ -40,8 +40,14 @@ namespace Galaga_Exercise_2 {
         // Creating an enemyStrides list
         public List<Image> enemyStrides;
         
+        // 2.7 Creating another enemyStrides list called redMonster
+        public List<Image> redMonster;
+        
         // 2.7 Creating a Squadron
         public Squadron squadron = new Squadron();
+        
+        // 2.7 Creating a SuperSquadron
+        public SuperSquadron superSquadron = new SuperSquadron();
 
 
         public Game() {
@@ -68,10 +74,14 @@ namespace Galaga_Exercise_2 {
             // 2.5 Making sure that player subcribes to the eventbus
             eventBus.Subscribe(GameEventType.PlayerEvent, player);
 
-            // Added snippet of code from the assignment description 
+            // Added snippet of code from the assignment description (making a new enemy) 
             enemyStrides = ImageStride.CreateStrides(4,
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
             enemies = new List<Enemy>();
+            
+            // Making the redMonster
+            redMonster = ImageStride.CreateStrides(2, 
+                Path.Combine("Assets", "Images", "RedMonster.png"));
 
             // Instantiating playerShots as a new PlayerShot list
             playerShots = new List<PlayerShot>();
@@ -120,6 +130,7 @@ namespace Galaga_Exercise_2 {
             
             // 2.7 Creating squadrons at different spots on the screen
             squadron.CreateEnemies(enemyStrides);
+            superSquadron.CreateEnemies(redMonster);
 
             while (win.IsRunning()) {
                 gameTimer.MeasureTime();
@@ -127,7 +138,7 @@ namespace Galaga_Exercise_2 {
                     win.PollEvents();
                 }
 
-                // Update game logic here
+                // --------  Update game logic here  -----------
                 if (gameTimer.ShouldRender()) {
                     win.Clear();
 
@@ -146,8 +157,13 @@ namespace Galaga_Exercise_2 {
                     player.Entity.RenderEntity();
                     
                     // 2.7 Rendering the squadron enemies
-                    foreach (Entity entity in squadron.Enemies) {
-                        entity.RenderEntity();
+                    foreach (Entity squad in squadron.Enemies) {
+                        squad.RenderEntity();
+                    }
+                    
+                    // 2.7 Rendering the SuperSquandron enemies
+                    foreach (Entity superSquad  in superSquadron.Enemies) {
+                        superSquad.RenderEntity();
                     }
 
                     foreach (var shot in playerShots) {
@@ -253,8 +269,10 @@ namespace Galaga_Exercise_2 {
                 }
             }
 
-            // 2.7 Making sure the enemies that have been hit are removed
+            // 2.7 Making sure the enemies that have been hit are removed by using the Iterator-
+            // Method on squadron.Enemies
             squadron.Enemies.Iterate(Iterator);
+            superSquadron.Enemies.Iterate(Iterator);
 
             // Making a new list without the shots that have hit an enemy or have left the window
             var newShots = new List<PlayerShot>();

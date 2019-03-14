@@ -13,13 +13,9 @@ namespace Galaga_Exercise_2 {
         // Creating an instance field eventBus
         private readonly GameEventBus<object> eventBus;
 
-        // Creating a field explosionLength and setting it to 500
+        // Creating fields for explosions
         private readonly int explosionLength = 500;
-
-        // Creating an instance field explosions
         private readonly AnimationContainer explosions;
-
-        // Creating an explosionStrides list
         private readonly List<Image> explosionStrides;
 
         // Creating an instance field gameTimer
@@ -34,25 +30,15 @@ namespace Galaga_Exercise_2 {
         // Creating an instance field win
         private readonly Window win;
 
-        // Creating an enemies list
+        // Creating fields for the enemies
         public List<Enemy> enemies;
-
-        // Creating an enemyStrides list
         public List<Image> enemyStrides;
         
-        // 2.7 Creating another enemyStrides list called redMonster
+        // 2.7 Creating fields for the squadrons
         public List<Image> redMonster;
-        
-        // 2.7 Creating another enemyStrides list called greenMonster
         public List<Image> greenMonster;
-        
-        // 2.7 Creating a Squadron
         public Squadron squadron = new Squadron();
-        
-        // 2.7 Creating a SuperSquadron
         public SuperSquadron superSquadron = new SuperSquadron();
-        
-        // 2.7 Creating a GreenSquadron
         public GreenSquadron greenSquadron = new GreenSquadron();
 
 
@@ -85,11 +71,11 @@ namespace Galaga_Exercise_2 {
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
             enemies = new List<Enemy>();
             
-            // Making the redMonster
+            // 2.7 Making the redMonster
             redMonster = ImageStride.CreateStrides(2, 
                 Path.Combine("Assets", "Images", "RedMonster.png"));
             
-            // Making the greenMonster
+            // 2.7 Making the greenMonster
             greenMonster = ImageStride.CreateStrides(2,
                 Path.Combine("Assets", "Images", "GreenMonster.png"));
 
@@ -131,14 +117,8 @@ namespace Galaga_Exercise_2 {
         }
 
         public void GameLoop() {
-            // Adding enemies to the screen at different spots
-            // var v = 0.05f;
-            //for (var i = 0; i < 9; i++) {
-               // AddEnemies(v);
-               // v += 0.1f;
-            //}
             
-            // 2.7 Creating squadrons at different spots on the screen
+            // 2.7 Creating the different squadrons 
             squadron.CreateEnemies(enemyStrides);
             superSquadron.CreateEnemies(redMonster);
             greenSquadron.CreateEnemies(greenMonster);
@@ -156,10 +136,8 @@ namespace Galaga_Exercise_2 {
                     // Calling eventBus.ProcessEvents()
                     eventBus.ProcessEvents();
                     
-
                     // Making the player move
                     player.Move();
-                    
 
                     // Iterating shots
                     IterateShots();

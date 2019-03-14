@@ -5,7 +5,9 @@ using DIKUArcade.Graphics;
 using DIKUArcade.Math;
 
 namespace Galaga_Exercise_2 {
+    // 2.5 Making the Player inherit from IGameEventProcessor
     public class Player : IGameEventProcessor<object> {
+        // 2.5 Making an Entity of type Entity
         public Entity Entity { get; private set; }
         
         private readonly Game game;
@@ -14,10 +16,12 @@ namespace Galaga_Exercise_2 {
 
         public Player(Game game, DynamicShape shape, IBaseImage image) {
             this.game = game;
+            // 2.5 Instantiating Entity as a new Entity
             Entity = new Entity(shape, image);
         }
 
         // Making the Direction method which sets the direction of the player as the given vector
+        // 2.5 The Direction is now private
         private void Direction(Vec2F vector) {
             Entity.Shape.AsDynamicShape().Direction = vector;
         }
@@ -40,6 +44,8 @@ namespace Galaga_Exercise_2 {
             game.playerShots.Add(playerShot);
         }
 
+        // 2.5 ProcessEvent calls Direction for the different cases when the player pushes left and
+        // right and releases the keys. 
         public void ProcessEvent(GameEventType eventType,
             GameEvent<object> gameEvent) {
             if (eventType == GameEventType.PlayerEvent) {

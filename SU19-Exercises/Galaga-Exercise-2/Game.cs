@@ -57,11 +57,12 @@ namespace Galaga_Exercise_2 {
             eventBus.InitializeEventBus(new List<GameEventType> {
                 GameEventType.InputEvent, // key press / key release
                 GameEventType.WindowEvent, // messages to the window
-                GameEventType.PlayerEvent // Message from the player
+                GameEventType.PlayerEvent // 2.5 Message from the player
             });
             win.RegisterEventBus(eventBus);
             eventBus.Subscribe(GameEventType.InputEvent, this);
             eventBus.Subscribe(GameEventType.WindowEvent, this);
+            // 2.5 Making sure that player subcribes to the eventbus
             eventBus.Subscribe(GameEventType.PlayerEvent, player);
 
             // Added snippet of code from the assignment description 
@@ -159,6 +160,7 @@ namespace Galaga_Exercise_2 {
         }
 
         // Added snippet of code from the assignment description
+        // 2.5 Making sure that when a key is pressed that the event is registered to the eventBus
         public void KeyPress(string key) {
             switch (key) {
             case "KEY_ESCAPE":
@@ -167,14 +169,14 @@ namespace Galaga_Exercise_2 {
                         GameEventType.WindowEvent, this,
                         "CLOSE_WINDOW", "", ""));
                 break;
-            // Sends a message to the event bus that the left key has been pressed
+            // 2.5 Sends a message to the event bus that the left key has been pressed
             case "KEY_LEFT":
                 eventBus.RegisterEvent(
                     GameEventFactory<object>.CreateGameEventForAllProcessors(
                         GameEventType.PlayerEvent, this,
                         "MOVE_LEFT", "", ""));
                 break;
-            // Sends a message to the event bus that the right key has been pressed
+            // 2.5 Sends a message to the event bus that the right key has been pressed
             case "KEY_RIGHT":
                 eventBus.RegisterEvent(
                     GameEventFactory<object>.CreateGameEventForAllProcessors(
@@ -188,14 +190,17 @@ namespace Galaga_Exercise_2 {
             }
         }
 
+        // 2.5 Making sure that when a key is released that the event is registered to the eventBus
         public void KeyRelease(string key) {
             switch (key) {
+            // 2.5 Sends a message to the event bus that the right key has been released
             case "KEY_RIGHT":
                 eventBus.RegisterEvent(
                     GameEventFactory<object>.CreateGameEventForAllProcessors(
                         GameEventType.PlayerEvent, this,
                         "STOP", "", ""));
                 break;
+            // 2.5 Sends a message to the event bus that the left key has been released
             case "KEY_LEFT":
                 eventBus.RegisterEvent(
                     GameEventFactory<object>.CreateGameEventForAllProcessors(

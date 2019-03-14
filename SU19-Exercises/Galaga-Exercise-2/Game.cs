@@ -45,6 +45,7 @@ namespace Galaga_Exercise_2 {
         // 2.8 Creating fields to make the enemies move
         private NoMove noMove;
         private Down down;
+        private ZigZagDown zigzag;
 
 
         public Game() {
@@ -99,6 +100,7 @@ namespace Galaga_Exercise_2 {
             // Instantiating the move fields
             noMove = new NoMove();
             down = new Down();
+            zigzag = new ZigZagDown();
         }
 
         // Creating a playerShots list
@@ -151,6 +153,8 @@ namespace Galaga_Exercise_2 {
                     // 2.8 Making the enemies move
                     noMove.MoveEnemies(squadron.Enemies);
                     down.MoveEnemies(superSquadron.Enemies);
+                    // 2.8 THIS NEEDS TO WORK
+                    // zigzag.MoveEnemies(greenSquadron.Enemies);
                     
 
                     // Iterating shots

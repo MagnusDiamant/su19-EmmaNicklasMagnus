@@ -9,7 +9,7 @@ namespace Galaga_Exercise_2 {
         private Vec2F Vector { get; }
 
 
-        public Enemy(Game game, DynamicShape shape, IBaseImage image) : base(shape, image) {
+        public Enemy(DynamicShape shape, IBaseImage image) : base(shape, image) {
             this.game = game;
             // 2.6 Instantiating Vector as a new Vec2F
             Vector = shape.Position;

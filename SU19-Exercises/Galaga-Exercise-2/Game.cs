@@ -39,6 +39,9 @@ namespace Galaga_Exercise_2 {
 
         // Creating an enemyStrides list
         public List<Image> enemyStrides;
+        
+        // 2.7 Creating a Squadron
+        public Squadron squadron = new Squadron();
 
 
         public Game() {
@@ -109,11 +112,14 @@ namespace Galaga_Exercise_2 {
 
         public void GameLoop() {
             // Adding enemies to the screen at different spots
-            var v = 0.05f;
-            for (var i = 0; i < 9; i++) {
-                AddEnemies(v);
-                v += 0.1f;
-            }
+            // var v = 0.05f;
+            //for (var i = 0; i < 9; i++) {
+               // AddEnemies(v);
+               // v += 0.1f;
+            //}
+            
+            // 2.7 Creating squadrons at different spots on the screen
+            squadron.CreateEnemies(enemyStrides);
 
             while (win.IsRunning()) {
                 gameTimer.MeasureTime();
@@ -136,10 +142,12 @@ namespace Galaga_Exercise_2 {
                     // Iterating shots
                     IterateShots();
 
-                    // Render gameplay entities here
+                    // --------  Render gameplay entities here --------
                     player.Entity.RenderEntity();
-                    foreach (var x in enemies) {
-                        x.RenderEntity();
+                    
+                    // 2.7 Rendering the squadron enemies
+                    foreach (Entity entity in squadron.Enemies) {
+                        entity.RenderEntity();
                     }
 
                     foreach (var shot in playerShots) {
@@ -212,10 +220,28 @@ namespace Galaga_Exercise_2 {
 
         // AddEnemies creates the enemies and adds them to the enemy list. 
         public void AddEnemies(float x) {
-            var enemy = new Enemy(this, new DynamicShape(new Vec2F(x, 0.9f),
+            var enemy = new Enemy(new DynamicShape(new Vec2F(x, 0.9f),
                     new Vec2F(0.1f, 0.1f)),
                 new ImageStride(80, new List<Image>(enemyStrides)));
             enemies.Add(enemy);
+        }
+        
+        // 2.7 Method Iterator iterates through an EntityContainer and deletes the relevant entities
+        // if there has been a collision. Is to be used in IterateShots.
+        public void Iterator(Entity entity) {
+            foreach (var shot in playerShots) {
+                // Checking if a shot has collided with the enemy.
+                // If a collision has happened the shot and the enemy is deleted, an explosion is
+                // shown and the score increases with one point.
+                if (CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), entity.Shape)
+                    .Collision) {
+                    shot.DeleteEntity();
+                    entity.DeleteEntity();
+                    AddExplosion(entity.Shape.Position.X, entity.Shape.Position.Y,
+                        0.1f, 0.1f);
+                    score.AddPoint();
+                }
+            }
         }
 
         // IterateShots handles the updating and collision of the shots. 
@@ -225,31 +251,10 @@ namespace Galaga_Exercise_2 {
                 if (shot.Shape.Position.Y > 1.0f) {
                     shot.DeleteEntity();
                 }
-
-                // Iterating through the enemies and checking if a shot has collided with it
-                // If a collision has happened the shot and the enemy is deleted, an explosion is
-                // shown and the score increases with one point.
-                foreach (var enemy in enemies) {
-                    if (CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), enemy.Shape)
-                        .Collision) {
-                        shot.DeleteEntity();
-                        enemy.DeleteEntity();
-                        AddExplosion(enemy.Shape.Position.X, enemy.Shape.Position.Y,
-                            0.1f, 0.1f);
-                        score.AddPoint();
-                    }
-                }
             }
 
-            // Making a new list without the enemies that has been shot
-            var newEnemies = new List<Enemy>();
-            foreach (var newEnemy in enemies) {
-                if (!newEnemy.IsDeleted()) {
-                    newEnemies.Add(newEnemy);
-                }
-            }
-
-            enemies = newEnemies;
+            // 2.7 Making sure the enemies that have been hit are removed
+            squadron.Enemies.Iterate(Iterator);
 
             // Making a new list without the shots that have hit an enemy or have left the window
             var newShots = new List<PlayerShot>();

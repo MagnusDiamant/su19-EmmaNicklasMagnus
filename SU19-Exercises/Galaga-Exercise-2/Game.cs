@@ -138,12 +138,7 @@ namespace Galaga_Exercise_2 {
                 gameTimer.MeasureTime();
                 while (gameTimer.ShouldUpdate()) {
                     win.PollEvents();
-                }
-
-                // --------  Update game logic here  -----------
-                if (gameTimer.ShouldRender()) {
-                    win.Clear();
-
+                    // --------  Update game logic here  -----------
                     // Calling eventBus.ProcessEvents()
                     eventBus.ProcessEvents();
                     
@@ -153,12 +148,14 @@ namespace Galaga_Exercise_2 {
                     // 2.8 Making the enemies move
                     noMove.MoveEnemies(squadron.Enemies);
                     down.MoveEnemies(superSquadron.Enemies);
-                    // 2.8 THIS NEEDS TO WORK
-                    // zigzag.MoveEnemies(greenSquadron.Enemies);
+                    zigzag.MoveEnemies(greenSquadron.Enemies);
                     
-
                     // Iterating shots
                     IterateShots();
+                }
+
+                if (gameTimer.ShouldRender()) {
+                    win.Clear();
 
                     // --------  Render gameplay entities here --------
                     player.Entity.RenderEntity();
@@ -267,12 +264,6 @@ namespace Galaga_Exercise_2 {
                     entity.DeleteEntity();
                     AddExplosion(entity.Shape.Position.X, entity.Shape.Position.Y,
                         0.1f, 0.1f);
-// MAYBE IF POSSIBLE MAKE SUPERSQUANDRONS GIVE 5 POINTS                    
-//                    if () {
-//                        score.AddPoint(5);
-//                    } else {
-//                        score.AddPoint(1);
-//                    }
                     score.AddPoint(1);
                 }
             }

@@ -13,9 +13,10 @@ namespace Galaga_Exercise_2.MovementStrategy {
             var y = enemy.Shape.Position.Y;
             var x0 = enemy.Vector.X;
             var y0 = enemy.Vector.Y;
-            var newY = y + s;
-            var newX = x0 + a * (float) Math.Sin((2 * Math.PI * (y0 - newY)) / p);
-            enemy.Direction(new Vec2F(x + newX, y - newY));
+            var newY = y - s;
+            var newX = x0 + a * (float)Math.Sin((2.0f * Math.PI * (y0 - newY)) / p);
+            enemy.Shape.Position.X = newX;
+            enemy.Shape.Position.Y = newY;
         }
 
         public void MoveEnemies(EntityContainer<Enemy> enemies) {

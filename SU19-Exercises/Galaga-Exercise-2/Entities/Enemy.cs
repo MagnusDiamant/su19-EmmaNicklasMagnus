@@ -12,8 +12,8 @@ namespace Galaga_Exercise_2 {
 
         public Enemy(DynamicShape shape, IBaseImage image) : base(shape, image) {
             this.game = game;
-            // 2.6 Instantiating Vector as a new Vec2F
-            Vector = shape.Position;
+            // 2.6 Vector is now a copy of the shape's position
+            Vector = shape.Position.Copy();
             // 2.8 Instantiating enemy as a new Entity
             enemy = new Entity(shape,image);
         }

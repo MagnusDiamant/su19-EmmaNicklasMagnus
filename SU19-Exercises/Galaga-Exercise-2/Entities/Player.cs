@@ -7,17 +7,37 @@ using DIKUArcade.Math;
 namespace Galaga_Exercise_2 {
     // 2.5 Making the Player inherit from IGameEventProcessor
     public class Player : IGameEventProcessor<object> {
-        // 2.5 Making an Entity of type Entity
-        public Entity Entity { get; private set; }
-        
-        private readonly Game game;
         private readonly GameEventBus<object> eventBus;
-        
+
+        private readonly Game game;
+
 
         public Player(Game game, DynamicShape shape, IBaseImage image) {
             this.game = game;
             // 2.5 Instantiating Entity as a new Entity
             Entity = new Entity(shape, image);
+        }
+
+        // 2.5 Making an Entity of type Entity
+        public Entity Entity { get; }
+
+        // 2.5 ProcessEvent calls Direction for the different cases when the player pushes left and
+        // right and releases the keys. 
+        public void ProcessEvent(GameEventType eventType,
+            GameEvent<object> gameEvent) {
+            if (eventType == GameEventType.PlayerEvent) {
+                switch (gameEvent.Message) {
+                case "MOVE_LEFT":
+                    Direction(new Vec2F(-0.01f, 0.0f));
+                    break;
+                case "MOVE_RIGHT":
+                    Direction(new Vec2F(0.01f, 0.0f));
+                    break;
+                case "STOP":
+                    Direction(new Vec2F(0.0f, 0.0f));
+                    break;
+                }
+            }
         }
 
         // Making the Direction method which sets the direction of the player as the given vector
@@ -42,25 +62,6 @@ namespace Galaga_Exercise_2 {
                     Entity.Shape.Position.Y + 0.1f), new Vec2F(0.008f, 0.027f)),
                 new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
             game.playerShots.Add(playerShot);
-        }
-
-        // 2.5 ProcessEvent calls Direction for the different cases when the player pushes left and
-        // right and releases the keys. 
-        public void ProcessEvent(GameEventType eventType,
-            GameEvent<object> gameEvent) {
-            if (eventType == GameEventType.PlayerEvent) {
-                switch (gameEvent.Message) {
-                case "MOVE_LEFT":
-                    Direction(new Vec2F(-0.01f, 0.0f));
-                    break;
-                case "MOVE_RIGHT":
-                    Direction(new Vec2F(0.01f, 0.0f));
-                    break;
-                case "STOP":
-                    Direction(new Vec2F(0.0f, 0.0f));
-                    break;
-                }
-            }
         }
     }
 }

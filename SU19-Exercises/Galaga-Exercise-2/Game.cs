@@ -30,21 +30,21 @@ namespace Galaga_Exercise_2 {
 
         // Creating an instance field win
         private readonly Window win;
+        private Down down;
 
         // Creating fields for the enemies
         private List<Enemy> enemies;
         private List<Image> enemyStrides;
-        
-        // 2.7 Creating fields for the squadrons
-        private List<Image> redMonster;
         private List<Image> greenMonster;
-        private Squadron squadron = new Squadron();
-        private SuperSquadron superSquadron = new SuperSquadron();
         private GreenSquadron greenSquadron = new GreenSquadron();
-        
+
         // 2.8 Creating fields to make the enemies move
         private NoMove noMove;
-        private Down down;
+
+        // 2.7 Creating fields for the squadrons
+        private List<Image> redMonster;
+        private Squadron squadron = new Squadron();
+        private SuperSquadron superSquadron = new SuperSquadron();
         private ZigZagDown zigzag;
 
 
@@ -76,11 +76,11 @@ namespace Galaga_Exercise_2 {
             enemyStrides = ImageStride.CreateStrides(4,
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
             enemies = new List<Enemy>();
-            
+
             // 2.7 Making the redMonster
-            redMonster = ImageStride.CreateStrides(2, 
+            redMonster = ImageStride.CreateStrides(2,
                 Path.Combine("Assets", "Images", "RedMonster.png"));
-            
+
             // 2.7 Making the greenMonster
             greenMonster = ImageStride.CreateStrides(2,
                 Path.Combine("Assets", "Images", "GreenMonster.png"));
@@ -96,8 +96,8 @@ namespace Galaga_Exercise_2 {
             // Instantiating score as a new Score
             score = new Score(new Vec2F(0.43f, 0.40f),
                 new Vec2F(0.3f, 0.2f));
-            
-            // Instantiating the move fields
+
+            // 2.8 Instantiating the move fields
             noMove = new NoMove();
             down = new Down();
             zigzag = new ZigZagDown();
@@ -128,7 +128,6 @@ namespace Galaga_Exercise_2 {
         }
 
         public void GameLoop() {
-            
             // 2.7 Creating the different squadrons 
             squadron.CreateEnemies(enemyStrides);
             superSquadron.CreateEnemies(redMonster);
@@ -139,17 +138,18 @@ namespace Galaga_Exercise_2 {
                 while (gameTimer.ShouldUpdate()) {
                     win.PollEvents();
                     // --------  Update game logic here  -----------
+
                     // Calling eventBus.ProcessEvents()
                     eventBus.ProcessEvents();
-                    
+
                     // Making the player move
                     player.Move();
-                    
+
                     // 2.8 Making the enemies move
                     noMove.MoveEnemies(squadron.Enemies);
                     down.MoveEnemies(superSquadron.Enemies);
                     zigzag.MoveEnemies(greenSquadron.Enemies);
-                    
+
                     // Iterating shots
                     IterateShots();
                 }
@@ -158,18 +158,19 @@ namespace Galaga_Exercise_2 {
                     win.Clear();
 
                     // --------  Render gameplay entities here --------
+
                     player.Entity.RenderEntity();
-                    
+
                     // 2.7 Rendering the squadron enemies
                     foreach (Entity squad in squadron.Enemies) {
                         squad.RenderEntity();
                     }
-                    
+
                     // 2.7 Rendering the SuperSquandron enemies
-                    foreach (Entity superSquad  in superSquadron.Enemies) {
+                    foreach (Entity superSquad in superSquadron.Enemies) {
                         superSquad.RenderEntity();
                     }
-                    
+
                     // 2.7 Rendering the GreenSquadron enemies
                     foreach (Entity greenSquad in greenSquadron.Enemies) {
                         greenSquad.RenderEntity();
@@ -250,7 +251,7 @@ namespace Galaga_Exercise_2 {
                 new ImageStride(80, new List<Image>(enemyStrides)));
             enemies.Add(enemy);
         }
-        
+
         // 2.7 Method Iterator iterates through an EntityContainer and deletes the relevant entities
         // if there has been a collision. Is to be used in IterateShots.
         public void Iterator(Entity entity) {

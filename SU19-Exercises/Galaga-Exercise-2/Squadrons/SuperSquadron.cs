@@ -9,6 +9,7 @@ namespace Galaga_Exercise_2 {
     public class SuperSquadron : ISquadron {
         public EntityContainer<Enemy> Enemies { get; } = new EntityContainer<Enemy>();
         public int MaxEnemies { get; }
+
         public void CreateEnemies(List<Image> enemyStrides) {
             var v = 0.20f;
             for (var i = 0; i < 3; i++) {

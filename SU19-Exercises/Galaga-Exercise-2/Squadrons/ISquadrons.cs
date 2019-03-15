@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DIKUArcade.Entities;
-using System.Drawing;
-using Image = DIKUArcade.Graphics.Image;
+using DIKUArcade.Graphics;
 
 // 2.7 Making an unified interface Squadrons
 // Added snippet of code from the assignment description

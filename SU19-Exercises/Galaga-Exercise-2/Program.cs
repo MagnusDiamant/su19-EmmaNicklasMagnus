@@ -8,4 +8,3 @@ namespace Galaga_Exercise_2 {
         }
     }
 }
-    

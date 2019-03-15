@@ -1,16 +1,15 @@
 using System.Collections.Generic;
-using System.IO;
 using DIKUArcade.Entities;
 using DIKUArcade.Graphics;
 using DIKUArcade.Math;
 using Galaga_Exercise_2.Squadrons;
-using Image = DIKUArcade.Graphics.Image;
 
 namespace Galaga_Exercise_2 {
     // 2.7 Making a new class Squadron that inherits from ISquadron
     public class Squadron : ISquadron {
         public EntityContainer<Enemy> Enemies { get; } = new EntityContainer<Enemy>();
         public int MaxEnemies { get; }
+
         public void CreateEnemies(List<Image> enemyStrides) {
             var v = 0.05f;
             for (var i = 0; i < 9; i++) {

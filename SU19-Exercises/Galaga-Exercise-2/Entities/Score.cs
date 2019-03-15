@@ -12,7 +12,7 @@ namespace Galaga_Exercise_2 {
             display = new Text(score.ToString(), position, extent);
         }
 
-        // AddPoint increases the score by 1 point.
+        // AddPoint increases the score by the given point.
         public void AddPoint(int point) {
             score += point;
         }

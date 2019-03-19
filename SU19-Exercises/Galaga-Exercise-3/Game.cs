@@ -66,7 +66,8 @@ namespace Galaga_Exercise_3 {
             eventBus.InitializeEventBus(new List<GameEventType> {
                 GameEventType.InputEvent, // key press / key release
                 GameEventType.WindowEvent, // messages to the window
-                GameEventType.PlayerEvent // 2.5 Message from the player
+                GameEventType.PlayerEvent, // Message from the player
+                GameEventType.GameStateEvent // Message about the gameStateEvent
             });
             win.RegisterEventBus(eventBus);
             eventBus.Subscribe(GameEventType.InputEvent, this);

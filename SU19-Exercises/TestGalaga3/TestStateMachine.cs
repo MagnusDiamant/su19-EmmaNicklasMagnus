@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DIKUArcade.EventBus;
 using GalagaGame;
 using Galaga_Exercise_3.GalagaState;
@@ -11,6 +12,12 @@ namespace TestGalaga3 {
         public void InitiateStateMachine() {
             DIKUArcade.Window.CreateOpenGLContext();
             galagaBus = GalagaBus.GetBus();
+            GalagaBus.GetBus().InitializeEventBus(new List<GameEventType> {
+                GameEventType.InputEvent, // key press / key release
+                GameEventType.WindowEvent, // messages to the window
+                GameEventType.PlayerEvent, // Message from the player
+                GameEventType.GameStateEvent // Message about the GameStateEvent
+            });
             stateMachine = new StateMachine();
             galagaBus.Subscribe(GameEventType.GameStateEvent, stateMachine);
             

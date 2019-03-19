@@ -13,6 +13,7 @@ namespace Galaga_Exercise_3.GalagaState {
             GalagaBus.GetBus().Subscribe(GameEventType.InputEvent, this);
             
             ActiveState = MainMenu.GetInstance();
+            
         }
         
 
@@ -34,6 +35,7 @@ namespace Galaga_Exercise_3.GalagaState {
             if (eventType == GameEventType.GameStateEvent) {
                  SwitchState(GameStateType.StateTransformer.
                      TransformStringToState(gameEvent.Parameter1));
+                 
                  
                 
             }

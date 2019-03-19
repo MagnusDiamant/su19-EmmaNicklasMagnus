@@ -7,6 +7,7 @@ using DIKUArcade.Graphics;
 using DIKUArcade.Math;
 using DIKUArcade.Physics;
 using DIKUArcade.Timers;
+using Galaga_Exercise_3.GalagaState;
 using Galaga_Exercise_3.MovementStrategy;
 
 namespace Galaga_Exercise_3 {
@@ -46,6 +47,7 @@ namespace Galaga_Exercise_3 {
         private Squadron squadron = new Squadron();
         private SuperSquadron superSquadron = new SuperSquadron();
         private ZigZagDown zigzag;
+
 
 
         public Game() {
@@ -101,6 +103,8 @@ namespace Galaga_Exercise_3 {
             noMove = new NoMove();
             down = new Down();
             zigzag = new ZigZagDown();
+
+            
         }
 
         // Creating a playerShots list
@@ -182,6 +186,7 @@ namespace Galaga_Exercise_3 {
 
                     explosions.RenderAnimations();
                     score.RenderScore();
+
 
                     win.SwapBuffers();
                 }

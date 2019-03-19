@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2EB687F4-BE31-4DBF-84EB-4A0798D64EE5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Galaga_Exercise_3</RootNamespace>
+    <AssemblyName>Galaga_Exercise_3</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Enemy.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\PlayerShot.cs" />
+    <Compile Include="Entities\Score.cs" />
+    <Compile Include="Galagabus.cs" />
+    <Compile Include="GalagaStates\GameStateType.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="MovementStrategy\Down.cs" />
+    <Compile Include="MovementStrategy\IMovementStrategy.cs" />
+    <Compile Include="MovementStrategy\NoMove.cs" />
+    <Compile Include="MovementStrategy\ZigZagDown.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Squadrons\GreenSquadron.cs" />
+    <Compile Include="Squadrons\ISquadrons.cs" />
+    <Compile Include="Squadrons\Squadron.cs" />
+    <Compile Include="Squadrons\SuperSquadron.cs" />
+    <Compile Include="StateMachine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\.DS_Store" />
+    <Content Include="Assets\Assets-kopi\Images\BlueMonster.png" />
+    <Content Include="Assets\Assets-kopi\Images\BombPickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\BulletRed2.png" />
+    <Content Include="Assets\Assets-kopi\Images\DamagePickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\Explosion.png" />
+    <Content Include="Assets\Assets-kopi\Images\GreenMonster.png" />
+    <Content Include="Assets\Assets-kopi\Images\LifePickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\Player.png" />
+    <Content Include="Assets\Assets-kopi\Images\PlayerBooster.png" />
+    <Content Include="Assets\Assets-kopi\Images\PuffOfSmoke.png" />
+    <Content Include="Assets\Assets-kopi\Images\RedMonster.png" />
+    <Content Include="Assets\Assets-kopi\Images\Rocket.png" />
+    <Content Include="Assets\Assets-kopi\Images\RocketPickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\ShieldPickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\SpaceBackground.png" />
+    <Content Include="Assets\Assets-kopi\Images\SpeedPickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\SpreadPickUp.png" />
+    <Content Include="Assets\Assets-kopi\Images\TitleImage.png" />
+    <Content Include="Assets\Images\BlueMonster.png" />
+    <Content Include="Assets\Images\BombPickUp.png" />
+    <Content Include="Assets\Images\BulletRed2.png" />
+    <Content Include="Assets\Images\DamagePickUp.png" />
+    <Content Include="Assets\Images\Explosion.png" />
+    <Content Include="Assets\Images\GreenMonster.png" />
+    <Content Include="Assets\Images\LifePickUp.png" />
+    <Content Include="Assets\Images\Player.png" />
+    <Content Include="Assets\Images\PlayerBooster.png" />
+    <Content Include="Assets\Images\PuffOfSmoke.png" />
+    <Content Include="Assets\Images\RedMonster.png" />
+    <Content Include="Assets\Images\Rocket.png" />
+    <Content Include="Assets\Images\RocketPickUp.png" />
+    <Content Include="Assets\Images\ShieldPickUp.png" />
+    <Content Include="Assets\Images\SpaceBackground.png" />
+    <Content Include="Assets\Images\SpeedPickUp.png" />
+    <Content Include="Assets\Images\SpreadPickUp.png" />
+    <Content Include="Assets\Images\TitleImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DIKUArcade\DIKUArcade\DIKUArcade.csproj">
+      <Project>{a1e4e4df-0967-4096-9e3c-fbc29b7d07dd}</Project>
+      <Name>DIKUArcade</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>

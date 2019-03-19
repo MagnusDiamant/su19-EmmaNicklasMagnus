@@ -1,4 +1,4 @@
-using GalagaGame.GalagaState;
+using Galaga_Exercise_3.GalagaState;
 using NUnit.Framework;
 
 namespace TestGalaga3 {

@@ -44,7 +44,11 @@
     <Compile Include="Entities\PlayerShot.cs" />
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Galagabus.cs" />
+    <Compile Include="GalagaStates\GamePaused.cs" />
+    <Compile Include="GalagaStates\GameRunning.cs" />
     <Compile Include="GalagaStates\GameStateType.cs" />
+    <Compile Include="GalagaStates\MainMenu.cs" />
+    <Compile Include="GalagaStates\StateMachine.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MovementStrategy\Down.cs" />
     <Compile Include="MovementStrategy\IMovementStrategy.cs" />
@@ -56,7 +60,6 @@
     <Compile Include="Squadrons\ISquadrons.cs" />
     <Compile Include="Squadrons\Squadron.cs" />
     <Compile Include="Squadrons\SuperSquadron.cs" />
-    <Compile Include="StateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\.DS_Store" />

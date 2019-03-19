@@ -1,6 +1,6 @@
 using System;
 
-namespace GalagaGame.GalagaState {
+namespace Galaga_Exercise_3.GalagaState {
     public class GameStateType {
         public enum GameStateTypes {
             GameRunning,

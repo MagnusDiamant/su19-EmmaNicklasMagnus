@@ -187,6 +187,7 @@ namespace Galaga_Exercise_3 {
 
                     explosions.RenderAnimations();
                     score.RenderScore();
+                    MainMenu.GetInstance().RenderState();
 
 
                     win.SwapBuffers();

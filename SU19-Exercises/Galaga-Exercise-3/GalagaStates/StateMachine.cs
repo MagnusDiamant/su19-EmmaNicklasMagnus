@@ -11,34 +11,35 @@ namespace Galaga_Exercise_3.GalagaState {
         public StateMachine() {
             GalagaBus.GetBus().Subscribe(GameEventType.GameStateEvent, this);
             GalagaBus.GetBus().Subscribe(GameEventType.InputEvent, this);
-            
+
             ActiveState = MainMenu.GetInstance();
-            
+           
+
         }
-        
+
 
         private void SwitchState(GameStateType.GameStateTypes stateType) {
             switch (stateType) {
-                case GameStateType.GameStateTypes.GameRunning:
-                    ActiveState = GameRunning.GetInstance();
-                    break;
-                case GameStateType.GameStateTypes.GamePaused:
-                    ActiveState = GamePaused.GetInstance();
-                    break;
-                default:
-                    ActiveState = MainMenu.GetInstance();
-                    break;
+            case GameStateType.GameStateTypes.GameRunning:
+                ActiveState = GameRunning.GetInstance();
+                break;
+            case GameStateType.GameStateTypes.GamePaused:
+                ActiveState = GamePaused.GetInstance();
+                break;
+            default:
+                ActiveState = MainMenu.GetInstance();
+                break;
             }
         }
 
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
             if (eventType == GameEventType.GameStateEvent) {
-                 SwitchState(GameStateType.StateTransformer.
-                     TransformStringToState(gameEvent.Parameter1));
-                 
-                 
-                
+                SwitchState(
+                    GameStateType.StateTransformer.TransformStringToState(gameEvent.Parameter1));
+            } else if (eventType == GameEventType.InputEvent) {
+                  MainMenu.GetInstance().HandleKeyEvent(gameEvent.Message,
+                        gameEvent.Parameter1);
+                }
             }
         }
     }
-}

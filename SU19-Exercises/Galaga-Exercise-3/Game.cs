@@ -78,12 +78,15 @@ namespace Galaga_Exercise_3 {
                 gameTimer.MeasureTime();
                 while (gameTimer.ShouldUpdate()) {
                     win.PollEvents();
+                    // Calls processEvent from each class containing an eventProcessor 
                     GalagaBus.GetBus().ProcessEvents();
+                    // Makes the player and enemies move, if the state is GameRunning. 
                     stateMachine.ActiveState.UpdateGameLogic(); 
                 }
 
                 if (gameTimer.ShouldRender()) {
                     win.Clear();
+                    // Renders the components from the activeState 
                     stateMachine.ActiveState.RenderState();
                     win.SwapBuffers();
                 }

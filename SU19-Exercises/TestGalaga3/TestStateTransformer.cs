@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace TestGalaga3 {
     public class TestStateTransformer {
+        // Assignment 2.0 
         [Test]
         public void TestTransformStateToStringRunning() {
             Assert.AreEqual("GAME_RUNNING", 
@@ -13,13 +14,15 @@ namespace TestGalaga3 {
         [Test]
         public void TestTransformStateToStringPaused() {
             Assert.AreEqual("GAME_PAUSED",
-                GameStateType.StateTransformer.TransformStateToString(GameStateType.GameStateTypes
+                GameStateType.StateTransformer.TransformStateToString
+                (GameStateType.GameStateTypes
                     .GamePaused));
         }
         [Test]
         public void TestTransformStateToStringMenu() {
             Assert.AreEqual("MAIN_MENU",
-                GameStateType.StateTransformer.TransformStateToString(GameStateType.GameStateTypes
+                GameStateType.StateTransformer.TransformStateToString
+                (GameStateType.GameStateTypes
                     .MainMenu));
         }
 

@@ -32,12 +32,12 @@ namespace Galaga_Exercise_3.GalagaState {
         private List<Image> greenMonster;
         private GreenSquadron greenSquadron = new GreenSquadron();
 
-        // 2.8 Creating fields to make the enemies move
+        // Creating fields to make the enemies move
         private NoMove noMove;
         private Down down;
         private ZigZagDown zigzag;
 
-        // 2.7 Creating fields for the squadrons
+        // Creating fields for the squadrons
         private List<Image> redMonster;
         private Squadron squadron = new Squadron();
         private SuperSquadron superSquadron = new SuperSquadron();
@@ -45,18 +45,19 @@ namespace Galaga_Exercise_3.GalagaState {
 
         public GameRunning() {
             // Instantiating player as a new Player
-            player = new Player(new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
+            player = new Player(new DynamicShape(new Vec2F(0.45f, 0.1f), 
+                    new Vec2F(0.1f, 0.1f)),
                 new Image(Path.Combine("Assets", "Images", "Player.png")));
             
             // Making the blueMonster 
             blueMonster = ImageStride.CreateStrides(4,
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
 
-            // 2.7 Making the redMonster
+            // Making the redMonster
             redMonster = ImageStride.CreateStrides(2,
                 Path.Combine("Assets", "Images", "RedMonster.png"));
 
-            // 2.7 Making the greenMonster
+            // Making the greenMonster
             greenMonster = ImageStride.CreateStrides(2,
                 Path.Combine("Assets", "Images", "GreenMonster.png"));
 
@@ -72,17 +73,18 @@ namespace Galaga_Exercise_3.GalagaState {
             score = new Score(new Vec2F(0.43f, 0.40f),
                 new Vec2F(0.3f, 0.2f));
 
-            // 2.8 Instantiating the move fields
+            // Instantiating the move fields
             noMove = new NoMove();
             down = new Down();
             zigzag = new ZigZagDown();
             
-            // 2.7 Creating the different squadrons 
+            // Creating the different squadrons 
             squadron.CreateEnemies(blueMonster);
             superSquadron.CreateEnemies(redMonster);
             greenSquadron.CreateEnemies(greenMonster);
         }
 
+        // Returns an instance of GameRunning (and instantiates one if it has not already been)
         public static GameRunning GetInstance() {
             return GameRunning.instance ?? (GameRunning.instance = new GameRunning());
         }
@@ -104,7 +106,7 @@ namespace Galaga_Exercise_3.GalagaState {
             playerShots.Add(playerShot);
         }
         
-        // 2.7 Method Iterator iterates through an EntityContainer and deletes the relevant entities
+        // Method Iterator iterates through an EntityContainer and deletes the relevant entities
         // if there has been a collision. Is to be used in IterateShots.
         public void Iterator(Entity entity) {
             foreach (var shot in playerShots) {
@@ -131,7 +133,7 @@ namespace Galaga_Exercise_3.GalagaState {
                 }
             }
 
-            // 2.7 Making sure the enemies that have been hit are removed by using the Iterator-
+            // Making sure the enemies that have been hit are removed by using the Iterator-
             // Method on squadron.Enemies
             squadron.Enemies.Iterate(Iterator);
             superSquadron.Enemies.Iterate(Iterator);
@@ -171,48 +173,54 @@ namespace Galaga_Exercise_3.GalagaState {
 
         public void RenderState() {
             
+            // Renders the player
             player.Entity.RenderEntity();
 
-            // 2.7 Rendering the squadron enemies
+            // Rendering the squadron enemies
             foreach (Entity squad in squadron.Enemies) {
                 squad.RenderEntity();
             }
 
-            // 2.7 Rendering the SuperSquandron enemies
+            // Rendering the SuperSquandron enemies
             foreach (Entity superSquad in superSquadron.Enemies) {
                 superSquad.RenderEntity();
             }
 
-            // 2.7 Rendering the GreenSquadron enemies
+            // Rendering the GreenSquadron enemies
             foreach (Entity greenSquad in greenSquadron.Enemies) {
                 greenSquad.RenderEntity();
             }
 
+            // Renders the shots 
             foreach (var shot in playerShots) {
                 shot.RenderEntity();
             }
 
+            // Renders the explosions and the score 
             explosions.RenderAnimations();
             score.RenderScore();
         }
 
+        // 3.3.2 - Works the same way as MainMenu.HandleKeyEvent except for some added features
         public void HandleKeyEvent(string keyValue, string keyAction) {
             if (keyAction == "KEY_PRESS") {
                 switch (keyValue) {
+                // If the escape key is pressed an event is created for all processors to change 
+                // the activeState to GamePaused. 
                 case "KEY_ESCAPE":
                     GalagaBus.GetBus().RegisterEvent(
                         GameEventFactory<object>.CreateGameEventForAllProcessors(
                             GameEventType.GameStateEvent, this,
                             "CHANGE_STATE", "GAME_PAUSED", ""));
                     break;
-                // 2.5 Sends a message to the event bus that the left key has been pressed
+                // Sends a message to the event bus that the left key has been pressed
                 case "KEY_LEFT":
                     GalagaBus.GetBus().RegisterEvent(
                         GameEventFactory<object>.CreateGameEventForAllProcessors(
                             GameEventType.PlayerEvent, this,
                             "MOVE_LEFT", "", ""));
                     break;
-                // 2.5 Sends a message to the event bus that the right key has been pressed
+                // Sends a message to the event bus that the right key has been pressed
                 case "KEY_RIGHT":
                     GalagaBus.GetBus().RegisterEvent(
                         GameEventFactory<object>.CreateGameEventForAllProcessors(
@@ -226,14 +234,14 @@ namespace Galaga_Exercise_3.GalagaState {
                 }
             } else {
                 switch (keyValue) {
-                // 2.5 Sends a message to the event bus that the right key has been released
+                // Sends a message to the event bus that the right key has been released
                 case "KEY_RIGHT":
                     GalagaBus.GetBus().RegisterEvent(
                         GameEventFactory<object>.CreateGameEventForAllProcessors(
                             GameEventType.PlayerEvent, this,
                             "STOP", "", ""));
                     break;
-                // 2.5 Sends a message to the event bus that the left key has been released
+                // Sends a message to the event bus that the left key has been released
                 case "KEY_LEFT":
                     GalagaBus.GetBus().RegisterEvent(
                         GameEventFactory<object>.CreateGameEventForAllProcessors(

@@ -11,6 +11,7 @@ namespace TestGalaga3 {
         [SetUp]
         public void InitiateStateMachine() {
             DIKUArcade.Window.CreateOpenGLContext();
+            // 3.2.1 - Initializes a GalagaBus 
             galagaBus = GalagaBus.GetBus();
             GalagaBus.GetBus().InitializeEventBus(new List<GameEventType> {
                 GameEventType.InputEvent, // key press / key release
@@ -18,18 +19,21 @@ namespace TestGalaga3 {
                 GameEventType.PlayerEvent, // Message from the player
                 GameEventType.GameStateEvent // Message about the GameStateEvent
             });
+            // 3.2.1 - Intantiates a StateMachine
             stateMachine = new StateMachine();
+            // 3.2.1 - Subscribes said stateMachine to the galagaBus 
             galagaBus.Subscribe(GameEventType.GameStateEvent, stateMachine);
             
-            // Here you should:
-            // (1) Initialize a GalagaBus with proper GameEventTypes // (2) Instantiate the StateMachine
-            // (3) Subscribe the GalagaBus to proper GameEventTypes // and GameEventProcessors
 
         }
+        
+        // 3.2.1 - Tests that the initial ActiveState is MainMenu
         [Test]
         public void TestInitialState() {
             Assert.That(stateMachine.ActiveState, Is.InstanceOf<MainMenu>());
         }
+        
+        // 3.2.1 - Tests that the ActiveState can be changed from MainMenu to GamePaused
         [Test]
         public void TestEventGamePaused() {
             GalagaBus.GetBus().RegisterEvent(

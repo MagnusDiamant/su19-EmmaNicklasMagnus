@@ -7,7 +7,9 @@ namespace Galaga_Exercise_3.GalagaState {
             GamePaused,
             MainMenu
         };
-
+        
+        // 3.1.1 - Takes a string and returns the appropriate state of the GameStateTypes. 
+        // If the string doesn't fit any of the states an exception is thrown 
         public class StateTransformer {
             public static GameStateTypes TransformStringToState(string state) {
                 switch (state) {
@@ -21,7 +23,8 @@ namespace Galaga_Exercise_3.GalagaState {
                     throw new ArgumentException("Invalid argument - no match");
                 }
             }
-
+            // 3.1.1 - Takes a state and returns the state as a string. Throws an exception if the
+            // state is invalid. 
             public static string TransformStateToString(GameStateTypes state) {
                 switch (state) {
                 case GameStateTypes.GameRunning:

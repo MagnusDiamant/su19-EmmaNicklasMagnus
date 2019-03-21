@@ -24,6 +24,7 @@ namespace Galaga_Exercise_3.GalagaState {
                 return GamePaused.instance ?? (GamePaused.instance = new GamePaused());
             }
 
+            // Empty methods because of the IGameState interface 
             public void GameLoop() {
                 
             }
@@ -36,6 +37,9 @@ namespace Galaga_Exercise_3.GalagaState {
                 
             }
 
+            // 3.3.3 - Works the exact same way as MainMenu.RenderState except with a different 
+            // image and a new button that makes it possible to access the Main Menu from the pause 
+            // screen
             public void RenderState() {
                 backGroundImage = new Entity(new StationaryShape(new Vec2F(0.0f, 0.0f), 
                         new Vec2F(1.0f,1.0f)), 
@@ -61,6 +65,8 @@ namespace Galaga_Exercise_3.GalagaState {
                 menuButtons[2].RenderText();
             }
 
+            // 3.3.3 - Works the same way as MainMenu.HandleKeyEvent except it has an option for 
+            // accessing the Main Menu as well. 
             public void HandleKeyEvent(string keyValue, string keyAction) {
                 if (keyAction == "KEY_PRESS") {
                     switch (keyValue) {

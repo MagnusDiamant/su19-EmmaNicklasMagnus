@@ -1,19 +1,163 @@
+using System.Collections.Generic;
+using System.IO;
 using DIKUArcade.Entities;
+using DIKUArcade.EventBus;
 using DIKUArcade.Graphics;
+using DIKUArcade.Math;
+using DIKUArcade.Physics;
 using DIKUArcade.State;
+using GalagaGame;
+using Galaga_Exercise_3.MovementStrategy;
 
 namespace Galaga_Exercise_3.GalagaState {
     public class GameRunning : IGameState {
         private static GameRunning instance = null;
-        private Entity backGroundImage;
-        private Text[] menuButtons;
-        private int activeMenuButton;
-        private int maxMenuButtons;
+        
+        // Creating an instance field player
+        private readonly Player player;
+
+        // Creating an instance field score
+        private readonly Score score;
+        
+        // Creating a playerShots list
+        public List<PlayerShot> playerShots { private set; get; }
+        
+        // Creating fields for explosions
+        private readonly int explosionLength = 500;
+        private readonly AnimationContainer explosions;
+        private readonly List<Image> explosionStrides;
+        
+        // Creating fields for the enemies
+        private List<Enemy> enemies;
+        private List<Image> enemyStrides;
+        private List<Image> greenMonster;
+        private GreenSquadron greenSquadron = new GreenSquadron();
+
+        // 2.8 Creating fields to make the enemies move
+        private NoMove noMove;
+        private Down down;
+        private ZigZagDown zigzag;
+
+        // 2.7 Creating fields for the squadrons
+        private List<Image> redMonster;
+        private Squadron squadron = new Squadron();
+        private SuperSquadron superSquadron = new SuperSquadron();
+        
+
+        public GameRunning() {
+            // Instantiating player as a new Player
+            player = new Player(new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
+                new Image(Path.Combine("Assets", "Images", "Player.png")));
+            
+            // Added snippet of code from the assignment description (making a new enemy) 
+            enemyStrides = ImageStride.CreateStrides(4,
+                Path.Combine("Assets", "Images", "BlueMonster.png"));
+            enemies = new List<Enemy>();
+
+            // 2.7 Making the redMonster
+            redMonster = ImageStride.CreateStrides(2,
+                Path.Combine("Assets", "Images", "RedMonster.png"));
+
+            // 2.7 Making the greenMonster
+            greenMonster = ImageStride.CreateStrides(2,
+                Path.Combine("Assets", "Images", "GreenMonster.png"));
+
+            // Instantiating playerShots as a new PlayerShot list
+            playerShots = new List<PlayerShot>();
+
+            // Added snippet of code from the assignment description
+            explosionStrides = ImageStride.CreateStrides(8,
+                Path.Combine("Assets", "Images", "Explosion.png"));
+            explosions = new AnimationContainer(9);
+
+            // Instantiating score as a new Score
+            score = new Score(new Vec2F(0.43f, 0.40f),
+                new Vec2F(0.3f, 0.2f));
+
+            // 2.8 Instantiating the move fields
+            noMove = new NoMove();
+            down = new Down();
+            zigzag = new ZigZagDown();
+            
+            // 2.7 Creating the different squadrons 
+            squadron.CreateEnemies(enemyStrides);
+            superSquadron.CreateEnemies(redMonster);
+            greenSquadron.CreateEnemies(greenMonster);
+        }
 
         public static GameRunning GetInstance() {
             return GameRunning.instance ?? (GameRunning.instance = new GameRunning());
         }
 
+        // AddEnemies creates the enemies and adds them to the enemy list. 
+        public void AddEnemies(float x) {
+            var enemy = new Enemy(new DynamicShape(new Vec2F(x, 0.9f),
+                    new Vec2F(0.1f, 0.1f)),
+                new ImageStride(80, new List<Image>(enemyStrides)));
+            enemies.Add(enemy);
+        }
+        
+        // AddExplosion adds an explosion animation to the animation container
+        // (added from the assignment description).
+        public void AddExplosion(float posX, float posY, float extendX, float extendY) {
+            explosions.AddAnimation(
+                new StationaryShape(posX, posY, extendX, extendY), explosionLength,
+                new ImageStride(explosionLength / 8, explosionStrides));
+        }
+        
+        // CreateShot adds a shot to the playerShots list 
+        public void CreateShot() {
+            var playerShot = new PlayerShot(
+                new DynamicShape(new Vec2F(player.Entity.Shape.Position.X + 0.047f,
+                    player.Entity.Shape.Position.Y + 0.1f), new Vec2F(0.008f, 0.027f)),
+                new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
+            playerShots.Add(playerShot);
+        }
+        
+        // 2.7 Method Iterator iterates through an EntityContainer and deletes the relevant entities
+        // if there has been a collision. Is to be used in IterateShots.
+        public void Iterator(Entity entity) {
+            foreach (var shot in playerShots) {
+                // Checking if a shot has collided with the enemy.
+                // If a collision has happened the shot and the enemy is deleted, an explosion is
+                // shown and the score increases with one point.
+                if (CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), entity.Shape)
+                    .Collision) {
+                    shot.DeleteEntity();
+                    entity.DeleteEntity();
+                    AddExplosion(entity.Shape.Position.X, entity.Shape.Position.Y,
+                        0.1f, 0.1f);
+                    score.AddPoint(1);
+                }
+            }
+        }
+        
+        // IterateShots handles the updating and collision of the shots. 
+        public void IterateShots() {
+            foreach (var shot in playerShots) {
+                shot.Shape.Move();
+                if (shot.Shape.Position.Y > 1.0f) {
+                    shot.DeleteEntity();
+                }
+            }
+
+            // 2.7 Making sure the enemies that have been hit are removed by using the Iterator-
+            // Method on squadron.Enemies
+            squadron.Enemies.Iterate(Iterator);
+            superSquadron.Enemies.Iterate(Iterator);
+            greenSquadron.Enemies.Iterate(Iterator);
+
+            // Making a new list without the shots that have hit an enemy or have left the window
+            var newShots = new List<PlayerShot>();
+            foreach (var newShot in playerShots) {
+                if (!newShot.IsDeleted()) {
+                    newShots.Add(newShot);
+                }
+            }
+
+            playerShots = newShots;
+        }
+        
         public void GameLoop() {
             throw new System.NotImplementedException();
         }
@@ -23,15 +167,98 @@ namespace Galaga_Exercise_3.GalagaState {
         }
 
         public void UpdateGameLogic() {
-            throw new System.NotImplementedException();
+            // Making the player move
+            player.Move();
+
+            // 2.8 Making the enemies move
+            noMove.MoveEnemies(squadron.Enemies);
+            down.MoveEnemies(superSquadron.Enemies);
+            zigzag.MoveEnemies(greenSquadron.Enemies);
+
+            // Iterating shots
+            IterateShots();
         }
 
         public void RenderState() {
-            throw new System.NotImplementedException();
+            
+            player.Entity.RenderEntity();
+
+            // 2.7 Rendering the squadron enemies
+            foreach (Entity squad in squadron.Enemies) {
+                squad.RenderEntity();
+            }
+
+            // 2.7 Rendering the SuperSquandron enemies
+            foreach (Entity superSquad in superSquadron.Enemies) {
+                superSquad.RenderEntity();
+            }
+
+            // 2.7 Rendering the GreenSquadron enemies
+            foreach (Entity greenSquad in greenSquadron.Enemies) {
+                greenSquad.RenderEntity();
+            }
+
+            foreach (var shot in playerShots) {
+                shot.RenderEntity();
+            }
+
+            explosions.RenderAnimations();
+            score.RenderScore();
         }
 
         public void HandleKeyEvent(string keyValue, string keyAction) {
             throw new System.NotImplementedException();
         }
+        
+        // Added snippet of code from the assignment description
+        // 2.5 Making sure that when a key is pressed that the event is registered to the eventBus
+        public void KeyPress(string key) {
+            switch (key) {
+            case "KEY_ESCAPE":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.WindowEvent, this,
+                        "CLOSE_WINDOW", "", ""));
+                break;
+            // 2.5 Sends a message to the event bus that the left key has been pressed
+            case "KEY_LEFT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_LEFT", "", ""));
+                break;
+            // 2.5 Sends a message to the event bus that the right key has been pressed
+            case "KEY_RIGHT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_RIGHT", "", ""));
+                break;
+            // Calling CreateShot for the space key
+            case "KEY_SPACE":
+                CreateShot();
+                break;
+            }
+        }
+
+        // 2.5 Making sure that when a key is released that the event is registered to the eventBus
+        public void KeyRelease(string key) {
+            switch (key) {
+            // 2.5 Sends a message to the event bus that the right key has been released
+            case "KEY_RIGHT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
+                break;
+            // 2.5 Sends a message to the event bus that the left key has been released
+            case "KEY_LEFT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
+                break;
+            }
+        }  
     }
 }

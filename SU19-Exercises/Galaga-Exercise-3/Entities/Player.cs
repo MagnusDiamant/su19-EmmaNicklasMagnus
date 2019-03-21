@@ -3,6 +3,7 @@ using DIKUArcade.Entities;
 using DIKUArcade.EventBus;
 using DIKUArcade.Graphics;
 using DIKUArcade.Math;
+using GalagaGame;
 
 namespace Galaga_Exercise_3 {
     // 2.5 Making the Player inherit from IGameEventProcessor
@@ -12,10 +13,11 @@ namespace Galaga_Exercise_3 {
         private readonly Game game;
 
 
-        public Player(Game game, DynamicShape shape, IBaseImage image) {
+        public Player(DynamicShape shape, IBaseImage image) {
             this.game = game;
             // 2.5 Instantiating Entity as a new Entity
             Entity = new Entity(shape, image);
+            GalagaBus.GetBus().Subscribe(GameEventType.PlayerEvent,this);
         }
 
         // 2.5 Making an Entity of type Entity
@@ -55,13 +57,6 @@ namespace Galaga_Exercise_3 {
             }
         }
 
-        // CreateShot adds a shot to the playerShots list 
-        public void CreateShot() {
-            var playerShot = new PlayerShot(game,
-                new DynamicShape(new Vec2F(Entity.Shape.Position.X + 0.047f,
-                    Entity.Shape.Position.Y + 0.1f), new Vec2F(0.008f, 0.027f)),
-                new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
-            game.playerShots.Add(playerShot);
-        }
+        
     }
 }

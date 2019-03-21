@@ -34,7 +34,7 @@ namespace Galaga_Exercise_3.GalagaState {
             }
 
             public void UpdateGameLogic() {
-                throw new System.NotImplementedException();
+                
             }
 
             public void RenderState() {
@@ -47,11 +47,11 @@ namespace Galaga_Exercise_3.GalagaState {
                     new Vec2F(0.35f,0.25f));
                 newGame.SetColor(Color.Green);
                 quit.SetColor(Color.DarkRed);
-                
-                
+        
                 menuButtons[0] = newGame;
                 menuButtons[1] = quit; 
                 menuButtons[activeMenuButton].SetColor(Color.Gold);
+                
                 backGroundImage.RenderEntity();
                 menuButtons[0].RenderText();
                 menuButtons[1].RenderText(); 

@@ -13,10 +13,7 @@ namespace Galaga_Exercise_3.GalagaState {
             GalagaBus.GetBus().Subscribe(GameEventType.InputEvent, this);
 
             ActiveState = MainMenu.GetInstance();
-           
-
         }
-
 
         private void SwitchState(GameStateType.GameStateTypes stateType) {
             switch (stateType) {

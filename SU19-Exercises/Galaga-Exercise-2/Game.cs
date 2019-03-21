@@ -8,6 +8,7 @@ using DIKUArcade.Math;
 using DIKUArcade.Physics;
 using DIKUArcade.Timers;
 using Galaga_Exercise_2.MovementStrategy;
+using Galaga_Exercise_3.GalagaState;
 
 namespace Galaga_Exercise_2 {
     public class Game : IGameEventProcessor<object> {
@@ -101,6 +102,7 @@ namespace Galaga_Exercise_2 {
             noMove = new NoMove();
             down = new Down();
             zigzag = new ZigZagDown();
+            
         }
 
         // Creating a playerShots list

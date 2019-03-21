@@ -62,10 +62,12 @@ namespace Galaga_Exercise_3 {
             } else if (eventType == GameEventType.InputEvent) {
                 switch (gameEvent.Parameter1) {
                 case "KEY_PRESS":
-                    GameRunning.GetInstance().HandleKeyEvent(gameEvent.Message,gameEvent.Parameter1);
+                    GameRunning.GetInstance().HandleKeyEvent(gameEvent.Message,
+                        gameEvent.Parameter1);
                     break;
                 case "KEY_RELEASE":
-                    GameRunning.GetInstance().HandleKeyEvent(gameEvent.Message,gameEvent.Parameter1);
+                    GameRunning.GetInstance().HandleKeyEvent(gameEvent.Message,
+                        gameEvent.Parameter1);
                     break;
                 }
             }

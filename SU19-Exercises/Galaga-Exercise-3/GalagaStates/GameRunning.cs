@@ -28,8 +28,7 @@ namespace Galaga_Exercise_3.GalagaState {
         private readonly List<Image> explosionStrides;
         
         // Creating fields for the enemies
-        private List<Enemy> enemies;
-        private List<Image> enemyStrides;
+        private List<Image> blueMonster;
         private List<Image> greenMonster;
         private GreenSquadron greenSquadron = new GreenSquadron();
 
@@ -49,10 +48,9 @@ namespace Galaga_Exercise_3.GalagaState {
             player = new Player(new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
                 new Image(Path.Combine("Assets", "Images", "Player.png")));
             
-            // Added snippet of code from the assignment description (making a new enemy) 
-            enemyStrides = ImageStride.CreateStrides(4,
+            // Making the blueMonster 
+            blueMonster = ImageStride.CreateStrides(4,
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
-            enemies = new List<Enemy>();
 
             // 2.7 Making the redMonster
             redMonster = ImageStride.CreateStrides(2,
@@ -80,21 +78,13 @@ namespace Galaga_Exercise_3.GalagaState {
             zigzag = new ZigZagDown();
             
             // 2.7 Creating the different squadrons 
-            squadron.CreateEnemies(enemyStrides);
+            squadron.CreateEnemies(blueMonster);
             superSquadron.CreateEnemies(redMonster);
             greenSquadron.CreateEnemies(greenMonster);
         }
 
         public static GameRunning GetInstance() {
             return GameRunning.instance ?? (GameRunning.instance = new GameRunning());
-        }
-
-        // AddEnemies creates the enemies and adds them to the enemy list. 
-        public void AddEnemies(float x) {
-            var enemy = new Enemy(new DynamicShape(new Vec2F(x, 0.9f),
-                    new Vec2F(0.1f, 0.1f)),
-                new ImageStride(80, new List<Image>(enemyStrides)));
-            enemies.Add(enemy);
         }
         
         // AddExplosion adds an explosion animation to the animation container
@@ -127,7 +117,7 @@ namespace Galaga_Exercise_3.GalagaState {
                     entity.DeleteEntity();
                     AddExplosion(entity.Shape.Position.X, entity.Shape.Position.Y,
                         0.1f, 0.1f);
-                    score.AddPoint(1);
+                    score.AddPoint(5);
                 }
             }
         }
@@ -159,11 +149,11 @@ namespace Galaga_Exercise_3.GalagaState {
         }
         
         public void GameLoop() {
-            throw new System.NotImplementedException();
+            
         }
 
         public void InitializeGameState() {
-            throw new System.NotImplementedException();
+            
         }
 
         public void UpdateGameLogic() {
@@ -207,58 +197,51 @@ namespace Galaga_Exercise_3.GalagaState {
         }
 
         public void HandleKeyEvent(string keyValue, string keyAction) {
-            throw new System.NotImplementedException();
-        }
-        
-        // Added snippet of code from the assignment description
-        // 2.5 Making sure that when a key is pressed that the event is registered to the eventBus
-        public void KeyPress(string key) {
-            switch (key) {
-            case "KEY_ESCAPE":
-                GalagaBus.GetBus().RegisterEvent(
-                    GameEventFactory<object>.CreateGameEventForAllProcessors(
-                        GameEventType.WindowEvent, this,
-                        "CLOSE_WINDOW", "", ""));
-                break;
-            // 2.5 Sends a message to the event bus that the left key has been pressed
-            case "KEY_LEFT":
-                GalagaBus.GetBus().RegisterEvent(
-                    GameEventFactory<object>.CreateGameEventForAllProcessors(
-                        GameEventType.PlayerEvent, this,
-                        "MOVE_LEFT", "", ""));
-                break;
-            // 2.5 Sends a message to the event bus that the right key has been pressed
-            case "KEY_RIGHT":
-                GalagaBus.GetBus().RegisterEvent(
-                    GameEventFactory<object>.CreateGameEventForAllProcessors(
-                        GameEventType.PlayerEvent, this,
-                        "MOVE_RIGHT", "", ""));
-                break;
-            // Calling CreateShot for the space key
-            case "KEY_SPACE":
-                CreateShot();
-                break;
+            if (keyAction == "KEY_PRESS") {
+                switch (keyValue) {
+                case "KEY_ESCAPE":
+                    GalagaBus.GetBus().RegisterEvent(
+                        GameEventFactory<object>.CreateGameEventForAllProcessors(
+                            GameEventType.GameStateEvent, this,
+                            "CHANGE_STATE", "GAME_PAUSED", ""));
+                    break;
+                // 2.5 Sends a message to the event bus that the left key has been pressed
+                case "KEY_LEFT":
+                    GalagaBus.GetBus().RegisterEvent(
+                        GameEventFactory<object>.CreateGameEventForAllProcessors(
+                            GameEventType.PlayerEvent, this,
+                            "MOVE_LEFT", "", ""));
+                    break;
+                // 2.5 Sends a message to the event bus that the right key has been pressed
+                case "KEY_RIGHT":
+                    GalagaBus.GetBus().RegisterEvent(
+                        GameEventFactory<object>.CreateGameEventForAllProcessors(
+                            GameEventType.PlayerEvent, this,
+                            "MOVE_RIGHT", "", ""));
+                    break;
+                // Calling CreateShot for the space key
+                case "KEY_SPACE":
+                    CreateShot();
+                    break;
+                }
+            } else {
+                switch (keyValue) {
+                // 2.5 Sends a message to the event bus that the right key has been released
+                case "KEY_RIGHT":
+                    GalagaBus.GetBus().RegisterEvent(
+                        GameEventFactory<object>.CreateGameEventForAllProcessors(
+                            GameEventType.PlayerEvent, this,
+                            "STOP", "", ""));
+                    break;
+                // 2.5 Sends a message to the event bus that the left key has been released
+                case "KEY_LEFT":
+                    GalagaBus.GetBus().RegisterEvent(
+                        GameEventFactory<object>.CreateGameEventForAllProcessors(
+                            GameEventType.PlayerEvent, this,
+                            "STOP", "", ""));
+                    break;
+                }
             }
         }
-
-        // 2.5 Making sure that when a key is released that the event is registered to the eventBus
-        public void KeyRelease(string key) {
-            switch (key) {
-            // 2.5 Sends a message to the event bus that the right key has been released
-            case "KEY_RIGHT":
-                GalagaBus.GetBus().RegisterEvent(
-                    GameEventFactory<object>.CreateGameEventForAllProcessors(
-                        GameEventType.PlayerEvent, this,
-                        "STOP", "", ""));
-                break;
-            // 2.5 Sends a message to the event bus that the left key has been released
-            case "KEY_LEFT":
-                GalagaBus.GetBus().RegisterEvent(
-                    GameEventFactory<object>.CreateGameEventForAllProcessors(
-                        GameEventType.PlayerEvent, this,
-                        "STOP", "", ""));
-                break;
-            }
-        }  
     }
 }

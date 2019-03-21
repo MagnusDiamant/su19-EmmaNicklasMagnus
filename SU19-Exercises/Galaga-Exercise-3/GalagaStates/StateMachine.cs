@@ -34,7 +34,7 @@ namespace Galaga_Exercise_3.GalagaState {
                 SwitchState(
                     GameStateType.StateTransformer.TransformStringToState(gameEvent.Parameter1));
             } else if (eventType == GameEventType.InputEvent) {
-                  MainMenu.GetInstance().HandleKeyEvent(gameEvent.Message,
+                  ActiveState.HandleKeyEvent(gameEvent.Message,
                         gameEvent.Parameter1);
                 }
             }

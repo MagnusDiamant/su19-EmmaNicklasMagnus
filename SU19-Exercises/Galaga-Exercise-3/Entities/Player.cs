@@ -14,7 +14,6 @@ namespace Galaga_Exercise_3 {
 
 
         public Player(DynamicShape shape, IBaseImage image) {
-            this.game = game;
             // 2.5 Instantiating Entity as a new Entity
             Entity = new Entity(shape, image);
             GalagaBus.GetBus().Subscribe(GameEventType.PlayerEvent,this);
@@ -56,7 +55,5 @@ namespace Galaga_Exercise_3 {
                 Entity.Shape.Move();
             }
         }
-
-        
     }
 }

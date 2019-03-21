@@ -26,11 +26,11 @@ namespace Galaga_Exercise_3.GalagaState {
             }
 
             public void GameLoop() {
-                throw new System.NotImplementedException();
+                
             }
 
             public void InitializeGameState() {
-                throw new System.NotImplementedException();
+                
             }
 
             public void UpdateGameLogic() {

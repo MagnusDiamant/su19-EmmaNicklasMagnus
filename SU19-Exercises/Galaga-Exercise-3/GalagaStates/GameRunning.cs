@@ -134,7 +134,7 @@ namespace Galaga_Exercise_3.GalagaState {
             }
 
             // Making sure the enemies that have been hit are removed by using the Iterator-
-            // Method on squadron.Enemies
+            // Method on squadron.Enemies, superSquadron.Enemies and greenSquadron.Enemies
             squadron.Enemies.Iterate(Iterator);
             superSquadron.Enemies.Iterate(Iterator);
             greenSquadron.Enemies.Iterate(Iterator);

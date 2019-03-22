@@ -22,7 +22,7 @@ namespace Galaga_Exercise_3.GalagaState {
         private void SwitchState(GameStateType.GameStateTypes stateType) {
             switch (stateType) {
             case GameStateType.GameStateTypes.GameRunning:
-                // If the stateType os GameRunning, the ActiveState is set to an instance of 
+                // If the stateType is GameRunning, the ActiveState is set to an instance of 
                 // GameRunning. 
                 ActiveState = GameRunning.GetInstance();
                 break;

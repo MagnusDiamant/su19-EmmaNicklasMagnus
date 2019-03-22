@@ -95,7 +95,7 @@ namespace Galaga_Exercise_3.GalagaState {
                         break;
                     case "KEY_ENTER":
                         // If the enter key is pressed and the activeMenuButton = 0, a GameEvent
-                        // is created for alle EventProcessors with the message to switch the
+                        // is created for all EventProcessors with the message to switch the
                         // state to GameRunning 
                         if (activeMenuButton == 0) {
                             eventBus.RegisterEvent(

@@ -21,6 +21,23 @@ namespace Galaga_Exercise_3.GalagaState {
             private GameEventBus<object> eventBus = GalagaBus.GetBus();
 
 
+            public MainMenu() {
+                // 3.3.1 The background image is instantiated with a position, size and image called
+                // TitleImage.png
+                backGroundImage = new Entity(new StationaryShape(new Vec2F(0.0f, 0.0f), 
+                        new Vec2F(1.0f,1.0f)), 
+                    new Image(Path.Combine("Assets", "Images", "TitleImage.png")));
+                // 3.3.1 The buttons newGame and quit are instantiated with a string displayed on the 
+                // screen and a position and size 
+                newGame = new Text("New Game", (new Vec2F(0.3f, 0.5f)),
+                    new Vec2F(0.35f,0.25f) );
+                quit = new Text("Quit", (new Vec2F(0.3f,0.4f)), 
+                    new Vec2F(0.35f,0.25f));
+                // 3.3.1 The buttons are inserted in the array menuButtons
+                menuButtons[0] = newGame;
+                menuButtons[1] = quit; 
+            }
+            
             public static MainMenu GetInstance() {
                 return MainMenu.instance ?? (MainMenu.instance = new MainMenu());
             }
@@ -41,31 +58,16 @@ namespace Galaga_Exercise_3.GalagaState {
             }
 
             // 3.3.1 - Shows the background image and the buttons in the window 
-            public void RenderState() {
-                // The background image is instantiated with a position, size and image called
-                // TitleImage.png
-                backGroundImage = new Entity(new StationaryShape(new Vec2F(0.0f, 0.0f), 
-                        new Vec2F(1.0f,1.0f)), 
-                    new Image(Path.Combine("Assets", "Images", "TitleImage.png")));
-                // The buttons newGame and quit are instantiated with a string displayed on the 
-                // screen and a position and size 
-                newGame = new Text("New Game", (new Vec2F(0.3f, 0.5f)),
-                    new Vec2F(0.35f,0.25f) );
-                quit = new Text("Quit", (new Vec2F(0.3f,0.4f)), 
-                    new Vec2F(0.35f,0.25f));
-                // The colors of the buttons are changed to make the interaction design more 
+            public void RenderState() { 
+                // 3.3.1 The colors of the buttons are changed to make the interaction design more 
                 // user friendly 
                 newGame.SetColor(Color.Green);
                 quit.SetColor(Color.DarkRed);
-        
-                // The buttons are inserted in the array menuButtons
-                menuButtons[0] = newGame;
-                menuButtons[1] = quit; 
-                // The activeMenuButton (a.k.a. the button that you are "hovering" above) is 
+                // 3.3.1 The activeMenuButton (a.k.a. the button that you are "hovering" above) is 
                 // colored gold so the user can see which button is about to be pressed 
                 menuButtons[activeMenuButton].SetColor(Color.Gold);
                 
-                // The buttons and background image are rendered 
+                // The buttons and background image are rendered
                 backGroundImage.RenderEntity();
                 menuButtons[0].RenderText();
                 menuButtons[1].RenderText(); 

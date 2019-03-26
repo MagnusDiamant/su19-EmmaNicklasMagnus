@@ -20,6 +20,24 @@ namespace Galaga_Exercise_3.GalagaState {
             private int maxMenuButtons = 2;
             private GameEventBus<object> eventBus = GalagaBus.GetBus();
 
+            // 3.3.3 - Works the exact same way as the constructor for the MainMenu except with a
+            // different background image and a new button that makes it possible to access the
+            // Main Menu from the pause screen
+            public GamePaused() {
+                backGroundImage = new Entity(new StationaryShape(new Vec2F(0.0f, 0.0f), 
+                        new Vec2F(1.0f,1.0f)), 
+                    new Image(Path.Combine("Assets", "Images", "SpaceBackground.png"))); 
+                continueGame = new Text("Continue Game", (new Vec2F(0.3f, 0.5f)),
+                    new Vec2F(0.35f,0.25f) );
+                mainMenu = new Text("Main Menu", (new Vec2F(0.3f,0.4f)), 
+                    new Vec2F(0.35f,0.25f));
+                quit = new Text("Quit", (new Vec2F(0.3f,0.3f)), 
+                    new Vec2F(0.35f,0.25f));
+                menuButtons[0] = continueGame;
+                menuButtons[1] = mainMenu;
+                menuButtons[2] = quit;
+            }
+
             public static GamePaused GetInstance() {
                 return GamePaused.instance ?? (GamePaused.instance = new GamePaused());
             }
@@ -37,28 +55,16 @@ namespace Galaga_Exercise_3.GalagaState {
                 
             }
 
-            // 3.3.3 - Works the exact same way as MainMenu.RenderState except with a different 
-            // image and a new button that makes it possible to access the Main Menu from the pause 
-            // screen
+            // 3.3.3 - Shows the background image and the buttons in the window
             public void RenderState() {
-                backGroundImage = new Entity(new StationaryShape(new Vec2F(0.0f, 0.0f), 
-                        new Vec2F(1.0f,1.0f)), 
-                    new Image(Path.Combine("Assets", "Images", "SpaceBackground.png"))); 
-                continueGame = new Text("Continue Game", (new Vec2F(0.3f, 0.5f)),
-                    new Vec2F(0.35f,0.25f) );
-                mainMenu = new Text("Main Menu", (new Vec2F(0.3f,0.4f)), 
-                    new Vec2F(0.35f,0.25f));
-                quit = new Text("Quit", (new Vec2F(0.3f,0.3f)), 
-                    new Vec2F(0.35f,0.25f));
+                // Making the different buttons different colours
                 continueGame.SetColor(Color.Green);
                 mainMenu.SetColor(Color.Blue);
                 quit.SetColor(Color.DarkRed);
-        
-                menuButtons[0] = continueGame;
-                menuButtons[1] = mainMenu;
-                menuButtons[2] = quit;
+                // Making the activeMenuButton Golden
                 menuButtons[activeMenuButton].SetColor(Color.Gold);
                 
+                // The buttons and background image are rendered
                 backGroundImage.RenderEntity();
                 menuButtons[0].RenderText();
                 menuButtons[1].RenderText(); 

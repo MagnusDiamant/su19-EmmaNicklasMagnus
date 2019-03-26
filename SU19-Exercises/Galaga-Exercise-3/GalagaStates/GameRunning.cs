@@ -200,55 +200,67 @@ namespace Galaga_Exercise_3.GalagaState {
             explosions.RenderAnimations();
             score.RenderScore();
         }
+        
+        // Making sure that when a key is pressed the event is registered to the GalagaBus, is to
+        // be used in HandleKeyEvent
+        public void KeyPress(string key) {
+            switch (key) {
+            // If the escape key is pressed an event is created for all processors to change 
+            // the activeState to GamePaused. 
+            case "KEY_ESCAPE":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.GameStateEvent, this,
+                        "CHANGE_STATE", "GAME_PAUSED", ""));
+                break;
+            // Sends a message to the event bus that the left key has been pressed
+            case "KEY_LEFT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_LEFT", "", ""));
+                break;
+            // Sends a message to the event bus that the right key has been pressed
+            case "KEY_RIGHT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "MOVE_RIGHT", "", ""));
+                break;
+            // Calling CreateShot for the space key
+            case "KEY_SPACE":
+                CreateShot();
+                break;
+            }
+        }
+        
+        // Making sure that when a key is released the event is registered to the GalagaBus, is to
+        // be used in HandleKeyEvent
+        public void KeyRelease(string key) {
+            switch (key) {
+            // Sends a message to the event bus that the right key has been released
+            case "KEY_RIGHT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
+                break;
+            // Sends a message to the event bus that the left key has been released
+            case "KEY_LEFT":
+                GalagaBus.GetBus().RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.PlayerEvent, this,
+                        "STOP", "", ""));
+                break;
+            }
+        }
 
         // 3.3.2 - Works the same way as MainMenu.HandleKeyEvent except for some added features
         public void HandleKeyEvent(string keyValue, string keyAction) {
             if (keyAction == "KEY_PRESS") {
-                switch (keyValue) {
-                // If the escape key is pressed an event is created for all processors to change 
-                // the activeState to GamePaused. 
-                case "KEY_ESCAPE":
-                    GalagaBus.GetBus().RegisterEvent(
-                        GameEventFactory<object>.CreateGameEventForAllProcessors(
-                            GameEventType.GameStateEvent, this,
-                            "CHANGE_STATE", "GAME_PAUSED", ""));
-                    break;
-                // Sends a message to the event bus that the left key has been pressed
-                case "KEY_LEFT":
-                    GalagaBus.GetBus().RegisterEvent(
-                        GameEventFactory<object>.CreateGameEventForAllProcessors(
-                            GameEventType.PlayerEvent, this,
-                            "MOVE_LEFT", "", ""));
-                    break;
-                // Sends a message to the event bus that the right key has been pressed
-                case "KEY_RIGHT":
-                    GalagaBus.GetBus().RegisterEvent(
-                        GameEventFactory<object>.CreateGameEventForAllProcessors(
-                            GameEventType.PlayerEvent, this,
-                            "MOVE_RIGHT", "", ""));
-                    break;
-                // Calling CreateShot for the space key
-                case "KEY_SPACE":
-                    CreateShot();
-                    break;
-                }
+                KeyPress(keyValue);
             } else {
-                switch (keyValue) {
-                // Sends a message to the event bus that the right key has been released
-                case "KEY_RIGHT":
-                    GalagaBus.GetBus().RegisterEvent(
-                        GameEventFactory<object>.CreateGameEventForAllProcessors(
-                            GameEventType.PlayerEvent, this,
-                            "STOP", "", ""));
-                    break;
-                // Sends a message to the event bus that the left key has been released
-                case "KEY_LEFT":
-                    GalagaBus.GetBus().RegisterEvent(
-                        GameEventFactory<object>.CreateGameEventForAllProcessors(
-                            GameEventType.PlayerEvent, this,
-                            "STOP", "", ""));
-                    break;
-                }
+                KeyRelease(keyValue);
             }
         }
     }

@@ -201,7 +201,7 @@ namespace Galaga_Exercise_3.GalagaState {
             score.RenderScore();
         }
         
-        // Making sure that when a key is pressed the event is registered to the GalagaBus, is to
+        // Making sure that when a key is pressed the event is registered to the GalagaBus - is to
         // be used in HandleKeyEvent
         public void KeyPress(string key) {
             switch (key) {
@@ -234,7 +234,7 @@ namespace Galaga_Exercise_3.GalagaState {
             }
         }
         
-        // Making sure that when a key is released the event is registered to the GalagaBus, is to
+        // Making sure that when a key is released the event is registered to the GalagaBus - is to
         // be used in HandleKeyEvent
         public void KeyRelease(string key) {
             switch (key) {
